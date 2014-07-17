@@ -140,12 +140,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara (~> 2.1.0)
+  capybara
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.1.0)
-  rspec-rails (~> 2.0)
+  rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
