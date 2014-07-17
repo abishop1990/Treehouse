@@ -21,4 +21,5 @@ end
 group :test do
     gem 'capybara'
     gem 'rspec-rails'
+    gem 'shoulda-matchers' #Requested gem by Treehouse tutorial for DB relation testing
 end
