@@ -6,7 +6,9 @@ describe User do
         {
             first_name: "Alan",
             last_name: "Bishop",
-            email: "blah@bacon.com"
+            email: "blah@bacon.com",
+            password: "daplatypus",
+            password_confirmation: "daplatypus"
         }
     } 
 
@@ -26,10 +28,15 @@ describe User do
             expect(user).to validate_uniqueness_of(:email)
         end 
 
+        it "requires an email to look like an email address" do
+            user.email = "blah"
+            expect(user).to_not be_valid
+        end
+
         it "downcases an email before saving" do
             user = User.new(valid_attributes)
             user.email = "ALLCAPSEMAIL@CAPS.COM"
-            expect(user.save).to be_true
+            expect(user.save).to be true
             expect(user.email).to eq("allcapsemail@caps.com")
         end
 
