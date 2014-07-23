@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+
     #get 'todo_items/index'
 
     resources :todo_lists do
