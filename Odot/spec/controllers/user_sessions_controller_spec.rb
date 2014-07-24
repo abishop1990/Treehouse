@@ -16,11 +16,12 @@ describe UserSessionsController do
     end
 
     describe "POST 'create'" do
-            context "with correct credentials" do
-                let!(:user) { User.create(first_name: "Alan", last_name: "Bishop", email: "something@email.com", password: "thepassword") }
+        context "with correct credentials" do
+            let!(:user) { User.create(first_name: "Alan", last_name: "Bishop", email: "something@email.com", password: "thepassword") }
 
             it "redirects to the todo path" do
-                post :create, email: "something@email.com", password: "PLATYPUS"
+                post :create, email: "something@email.com", password: "thepassword"
+                expect(response).to be_redirect
                 expect(response).to redirect_to(todo_lists_path)
             
             end
@@ -37,7 +38,33 @@ describe UserSessionsController do
             
             end
 
+            it "sets the user_id in the sesion" do
+                post :create, email: "something@email.com", password: "thepassword"
+                expect(session[:user_id]).to eq(user.id)
+            end
+
+
+            it "sets the flash success message" do
+                post :create, email: "something@email.com", password: "thepassword"
+                expect(flash[:success]).to eq("Thanks for logging in!") 
+            end
+
         end
+
+        context "with blank credentials" do
+            
+            it "renders the new template" do
+                post :create
+                expect(response).to render_template('new')    
+            end
+
+            it "sets the flash error message" do
+                post :create
+                expect(flash[:error]).to eq("There was a problem logging in. Please check your email and password.")
+            end
+
+        end
+
     end
 
 end
